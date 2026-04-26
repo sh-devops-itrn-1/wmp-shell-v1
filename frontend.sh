@@ -1,27 +1,27 @@
-dnf module disable nginx -y
-dnf module enable nginx:1.26 -y
-dnf install -y nginx
+dnf module disable nginx -y &>>OUTPUT.log
+dnf module enable nginx:1.26 -y &>>OUTPUT.log
+dnf install -y nginx &>>OUTPUT.log
 
-cp ngnix.conf /etc/nginx/nginx.conf
+cp ngnix.conf /etc/nginx/nginx.conf &>>OUTPUT.log
 
 
-curl -fsSL https://rpm.nodesource.com/setup_22.x | bash -
-dnf install -y nodejs
+curl -fsSL https://rpm.nodesource.com/setup_22.x | bash - &>>OUTPUT.log
+dnf install -y nodejs &>>OUTPUT.log
 
-node --version
-npm --version
+node --version &>>OUTPUT.log
+npm --version &>>OUTPUT.log
 
-curl -L -o /tmp/frontend.tar.gz https://raw.githubusercontent.com/raghudevopsb88/wealth-project/main/artifacts/frontend.tar.gz
-mkdir -p /tmp/frontend
+curl -L -o /tmp/frontend.tar.gz https://raw.githubusercontent.com/raghudevopsb88/wealth-project/main/artifacts/frontend.tar.gz &>>OUTPUT.log
+mkdir -p /tmp/frontend &>>OUTPUT.log
 cd /tmp/frontend
-tar xzf /tmp/frontend.tar.gz
+tar xzf /tmp/frontend.tar.gz &>>OUTPUT.log
 
 cd /tmp/frontend
-npm ci
-npm run build
+npm ci &>>OUTPUT.log
+npm run build &>>OUTPUT.log
 
-rm -rf /usr/share/nginx/html/*
-cp -r /tmp/frontend/dist/* /usr/share/nginx/html/
+rm -rf /usr/share/nginx/html/* &>>OUTPUT.log
+cp -r /tmp/frontend/dist/* /usr/share/nginx/html/ &>>OUTPUT.log
 
-systemctl enable nginx
-systemctl start nginx
+systemctl enable nginx &>>OUTPUT.log
+systemctl start nginx &>>OUTPUT.log
